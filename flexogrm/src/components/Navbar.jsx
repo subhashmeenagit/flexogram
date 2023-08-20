@@ -6,6 +6,52 @@ const Navbar = ({ login }) => {
 
     const { setmodal } = useContext(LoginContext)
     const navigate = useNavigate()
+
+    const loginstatusmob = () => {
+        const token = localStorage.getItem("jwt");
+        if (token || login) {
+            return [
+                <>
+                    <Link to={"/"}><span class="material-symbols-outlined">
+                        home
+                    </span></Link>
+                    <Link to={'/profile'}><span class="material-symbols-outlined">
+                        person
+                    </span></Link>
+                    <Link to={'/createpost'}>
+                        <span class="material-symbols-outlined">
+                            add_box
+                        </span>
+
+                    </Link>
+                    <Link to={'/myfollowingpost'}> <span class="material-symbols-outlined">
+                        explore
+                    </span></Link>
+                    <Link to={"/signin"}
+                        onClick={() => setmodal(true)}>
+                        <span class="material-symbols-outlined"
+                        >
+                            logout
+                        </span>
+
+                    </Link>
+
+                </>
+            ]
+        }
+        else {
+            return [
+                <>
+                    <Link to={'/signup'}>SignUp</Link>
+                    <Link to={'/signin'}>SignIn</Link></>
+            ]
+        }
+    }
+
+
+
+
+
     const loginStatus = () => {
         const token = localStorage.getItem("jwt");
         if (token || login) {
@@ -42,22 +88,22 @@ const Navbar = ({ login }) => {
 
     return (
         <div className='navbar'>
-            <div>
-                <img src={logo} alt="Flexogram"
-                    onClick={() => {
-                        navigate("/")
-                    }}
-                />
-                <h1 onClick={() => {
-                    navigate("/")
-                }}>Flexogram</h1>
-            </div>
 
+            {/* <img className='logoh' src={logo} alt="Flexogram"
+                onClick={() => {
+                    navigate("/")
+                }}
+            /> */}
+            <h1 className='logoh' onClick={() => {
+                navigate("/")
+            }}>Flexogram</h1>
             <div className='nav-menu'>
 
-                {
-                    loginStatus()
-                }
+
+                <ul className='nav-web'> {loginStatus()}</ul>
+                <ul className="nav-mobile"> {loginstatusmob()} </ul>
+
+
             </div>
 
 
