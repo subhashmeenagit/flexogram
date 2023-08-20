@@ -1,0 +1,97 @@
+.modalbg {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    background-color: rgb(0, 0, 0, .1);
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.modalcentral {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal {
+    width: 350px;
+    background-color: rgb(250, 235, 215, .7);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 350px;
+
+    >.modalheader {
+        display: flex;
+        align-items: centers;
+        justify-content: center;
+        margin: 1rem 0;
+
+        >h1 {
+            font: 700 2rem $text4;
+        }
+    }
+
+
+    >.closebtn {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        cursor: pointer;
+        background-color: $lightblue;
+        border-radius: 2px;
+
+    }
+
+    .modalcontent {
+        display: flex;
+        align-items: centers;
+        justify-content: center;
+        text-transform: capitalize;
+
+        >p {
+            font: 400 1rem $text2;
+            word-spacing: -1px;
+        }
+    }
+
+    >.btnoption {
+        position: absolute;
+        bottom: 2rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        >button {
+            outline: none;
+            width: 6rem;
+            height: 3rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .5s;
+            font: 400 1rem $text2;
+
+            &:hover {
+                opacity: .8;
+                transform: scale(1.05);
+            }
+        }
+
+        >.conbtn {
+            background-color: rgb(63, 173, 68);
+            margin-left: 2rem;
+        }
+
+        >.canbtn {
+            background-color: rgb(241, 65, 65);
+            margin-right: 2rem;
+
+        }
+    }
+}

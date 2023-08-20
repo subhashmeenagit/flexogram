@@ -1,0 +1,44 @@
+@media screen and (max-width:800px) {
+
+    .navbar {
+
+        >div {
+            >img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+
+            >h1 {
+                font: 400 1.4rem $text3;
+            }
+        }
+
+    }
+
+
+
+    .signupform {
+        >div {
+            width: 90%;
+        }
+
+        >.signupoption {
+            width: 90%;
+        }
+
+    }
+
+    .signinform {
+        >div {
+            width: 90%;
+        }
+
+        >.signinoption {
+            width: 90%;
+        }
+
+    }
+
+
+
+}

@@ -1,0 +1,99 @@
+.signupform {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/instabg.jpg');
+    background-size: 100% 100%;
+
+    >div {
+        margin-top: 1rem;
+        border-radius: 5px;
+        box-shadow: 0px 1px 5px 1px $dark;
+        width: 40%;
+        height: 75vh;
+        background-color: rgb(255, 251, 251);
+
+        >h1 {
+            font: 400 2rem $text3;
+            text-align: center;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        >form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            >input {
+                width: 82%;
+                height: 2.5rem;
+                margin-top: 1rem;
+                padding: .6rem;
+                padding-left: 1.2rem;
+                outline: none;
+                border: none;
+                font: 500 1.2rem $text4;
+                border-radius: 10px;
+                background-color: $bgtext;
+
+            }
+
+            .formsubmitbrn {
+                padding: 0 1rem;
+                width: 7rem;
+                height: 2.5rem;
+                background-color: $lightblue;
+                font: 600 1.2rem $text4;
+                transition: all .2s;
+                cursor: pointer;
+                margin-top: 2rem;
+
+                &:hover {
+                    transform: scale(1.01);
+                    box-shadow: 1px 1px 5px $lightblue;
+                }
+            }
+        }
+
+
+
+
+
+    }
+
+    >.signupoption {
+        width: 40%;
+        height: 2.5rem;
+        margin-top: .5rem;
+        display: flex;
+        align-items: center;
+
+        >p {
+            font: 400 .9rem $text1;
+            color: $black;
+            margin-left: 1.2rem;
+        }
+
+        >a {
+            text-decoration: none;
+            font: 500 .9rem $text2;
+            color: $blue;
+            margin-left: .2rem;
+            transition: all .3s;
+
+            &:hover {
+                color: $mehru;
+                transform: scale(1.01);
+            }
+        }
+    }
+
+
+
+}
