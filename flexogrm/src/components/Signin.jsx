@@ -21,11 +21,11 @@ const Signin = () => {
 
     const postData = (e) => {
         if (!emailRegex.test(email)) {
-            toast.error("Please use a valif Email Id")
+            toast.error("Please use a valid Email Id")
             return;
         }
         // Sending data to server
-        fetch("/signin", {
+        fetch("http://localhost:5000/signin", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"

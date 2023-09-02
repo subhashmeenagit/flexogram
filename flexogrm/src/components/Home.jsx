@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import profilepic from "../assets/me1.jpg";
+import avtar from "../assets/avtar.png";
 import cardpic from "../assets/avtar.png";
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai'
@@ -22,7 +22,7 @@ const Home = () => {
         if (!token) {
             nevigate("/signin")
         }
-        fetch("/allposts", {
+        fetch("http://localhost:5000/allposts", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             },
@@ -44,7 +44,7 @@ const Home = () => {
 
 
     const likepost = (id) => {
-        fetch("/like", {
+        fetch("http://localhost:5000/like", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const Home = () => {
 
 
     const unlikepost = (id) => {
-        fetch("/unlike", {
+        fetch("http://localhost:5000/unlike", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const Home = () => {
 
 
     const makeComment = (text, id) => {
-        fetch("/comment", {
+        fetch("http://localhost:5000/comment", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -144,13 +144,12 @@ const Home = () => {
                             "border-radius": "5px"
                         }}>
                             <div className="cardheader">
-                                <Link to={`/profile/${posts.postedBy._id}`}>   <img src={posts.postedBy.Photo ? posts.postedBy.Photo : cardpic} alt="profilepic"
-                                    onClick={() => {
-                                        nevigate("/profile")
-                                    }} />
+                                <Link to={`/profile/${posts.postedBy._id}`}>
+                                    <img src={posts.postedBy.Photo ? posts.postedBy.Photo : avtar} alt="profilepic"
+                                        onClick={() => {
+                                            nevigate("/profile")
+                                        }} />
                                     <p onClick={() => {
-
-
 
                                     }}>{posts.postedBy.name}
                                     </p>
@@ -233,61 +232,70 @@ const Home = () => {
 
             {show && (
                 <div className="showcomment">
-
-                    <div className="postpic">
-                        <img src={item.photo} alt="pic" />
-                    </div>
-
-                    <div className="commentdetial">
+                    <div className="commentcontainer">
+                        <div className="postpic">
+                            <img src={item.photo} alt="pic" />
+                        </div>
                         <button className='togglecmt' onClick={() => {
                             toggleComment()
                         }}>
                             <AiOutlineClose />
                         </button>
-                        <div className="cardheader">
-                            <img src={profilepic} alt="profilepic" />
-                            <p>{item.postedBy.name}</p>
-                        </div>
-                        <div className="totalcomments">
-                            <h1> Total Comments: {item.comments.length}</h1>
-                            {item.comments.map((e) => {
-                                return <>
-                                    <div className="personcmt">
-
-                                        <h1> {e.postedBy.name} : </h1>
-                                        <p>{e.comment}</p>
-                                    </div>
-
-
-                                </>
-                            })}
-                        </div>
-                        <div className="likecomaddcoom">
-                            <div className='likecap'>
-                                <p
-                                >{item.likes.length} {item.likes.length > 1 ? "Likes" : "Like"}</p>
-                                <p>{item.body}</p>
+                        <div className="commentdetial">
+                            <div className="cardheadert">
+                                <img src={item.postedBy.Photo ? item.postedBy.Photo : avtar} alt="profilepic" />
+                                <p>{item.postedBy.name}</p>
                             </div>
-                            <div className="addcomment addcomment-new">
-                                <span class="material-symbols-outlined rxn">
-                                    add_reaction
-                                </span>
-                                <div className="cmtinput">
-                                    <input className='showcommentinput' type="text" placeholder='comment...'
-                                        value={comment} onChange={(e) => {
-                                            setcomment(e.target.value)
-                                        }} />
+                            <div className="totalcomments">
+                                <h1> Total Comments: {item.comments.length}</h1>
+                                {item.comments.map((e) => {
+                                    return <>
+                                        <div className="personcmt">
+
+                                            <h1> {e.postedBy.name} : </h1>
+                                            <p>{e.comment}</p>
+                                        </div>
+
+
+                                    </>
+                                })}
+                            </div>
+                            <div className="likecomaddcoom">
+                                <div className='likecap'>
+                                    <p
+
+                                    >{item.body}
+
+
+                                    </p>
+                                    <p
+                                    >{item.likes.length} {item.likes.length > 1 ? "Likes" : "Like"}
+
+
+                                    </p>
+
                                 </div>
-                                <button
-                                    onClick={() => {
-                                        makeComment(comment, item._id)
-                                        toggleComment();
+                                <div className="addcomment addcomment-new">
+                                    <span class="material-symbols-outlined rxn">
+                                        add_reaction
+                                    </span>
+                                    <div className="cmtinput">
+                                        <input className='showcommentinput' type="text" placeholder='comment...'
+                                            value={comment} onChange={(e) => {
+                                                setcomment(e.target.value)
+                                            }} />
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            makeComment(comment, item._id)
+                                            toggleComment();
 
-                                    }}
-                                >post</button>
+                                        }}
+                                    >post</button>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
                 </div>

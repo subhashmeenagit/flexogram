@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import pic1 from "../assets/me1.jpg"
+import pic1 from "../assets/avtar.png"
 import upl from "../assets/upload.png"
 import { toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom"
@@ -16,7 +16,7 @@ const CreatPost = () => {
         // saving post to mongodb
         if (url) {
 
-            fetch("/createPost", {
+            fetch("http://localhost:5000/createPost", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,6 +30,7 @@ const CreatPost = () => {
                 .then(data => {
                     if (data.error) {
                         notifyA(data.error)
+                        console.log(data);
                     } else {
                         notifyB("Successfully Posted")
                         navigate("/")
@@ -96,8 +97,8 @@ const CreatPost = () => {
 
             </div>
             <div className="creatpostperson">
-                <img src={pic1} alt="profilepic" />
-                <p>Subhash</p>
+                <img src={JSON.parse(localStorage.getItem("user")).Photo ? JSON.parse(localStorage.getItem("user")).Photo : pic1} alt="profilepic" />
+                <p>{JSON.parse(localStorage.getItem("user")).name}</p>
             </div>
             <div className="txtarea" >
                 <textarea type="text" placeholder='Write a Caption...'

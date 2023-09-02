@@ -80,4 +80,251 @@
         }
     }
 
+    .home {
+        max-width: 100%;
+
+
+
+        .addcomment {
+            display: flex;
+            margin-bottom: .5rem;
+            padding: .2% .5%;
+
+
+            >input {
+                width: 90%;
+            }
+        }
+    }
+
+    .showcomment {
+        padding: 10%;
+        width: 100%;
+        overflow-y: auto;
+
+        .commentcontainer {
+            flex-direction: column;
+            scroll-behavior: smooth;
+            overflow-y: scroll;
+
+            .postpic {
+
+                max-width: 100%;
+                max-height: 60%;
+                justify-content: center;
+
+                >img {
+                    max-width: 100%;
+                    max-height: 100%;
+
+                }
+            }
+
+        }
+
+    }
+
+
+    //profile
+    .profile {
+        max-width: 100%;
+        margin: 0rem auto;
+        height: 100%;
+        box-shadow: none;
+
+        >.profilefram {
+            border-bottom: none;
+            padding: 2%;
+            height: 8rem;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+
+            >.proflepic {
+                >img {
+                    width: 6rem;
+                    height: 6rem;
+                }
+            }
+
+            // userprofile
+
+
+            .profiledata {
+                >p {
+                    margin-left: 4%;
+                    font: 600 1.5rem $text2;
+
+                }
+
+                >div {
+                    margin: .8rem 1rem 1rem 4%;
+                    display: flex;
+                    justify-content: space-between;
+
+
+                    >p {
+                        font: 600 1.1rem $text4;
+                        text-align: center;
+                        letter-spacing: 2px;
+                    }
+
+                }
+
+
+            }
+        }
+
+        >.profilehistory {
+
+            width: 100%;
+            margin-top: 0;
+            padding: 2%;
+            display: flex;
+            flex-wrap: wrap;
+            height: fit-content;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            >img {
+                width: 30%;
+                height: 12rem;
+                border-radius: 2px;
+                margin: 5px;
+                cursor: pointer;
+
+            }
+        }
+
+
+    }
+
+
+    .showpost {
+        .container {
+            flex-direction: column;
+
+            .postPic {
+                max-width: 100%;
+                max-height: 60%;
+
+                >img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+
+            .details {
+                height: inherit;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                overflow-y: scroll;
+
+                .Xcardheader {
+                    width: 100%;
+                    background-color: white;
+                    display: flex;
+                    position: relative;
+                    align-items: center;
+                    border-bottom: 1px solid rgb(0, 0, 0, .2);
+
+                    >img {
+                        width: 4rem;
+                        height: 4rem;
+                        margin: .5rem;
+                        border-radius: 50%;
+                    }
+
+                    >p {
+                        margin-left: 1rem;
+                        color: #0f0f0f;
+                        font: 600 1.3rem $text2;
+                    }
+
+                    .deletePost {
+                        position: absolute;
+                        right: 1%;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+
+            .card-content {
+                border-top: 1px solid rgb(0, 0, 0, .1);
+                padding: .1rem 1.2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: rgb(255, 255, 255, );
+
+                >p:first-of-type {
+                    font: 600 1rem $text4;
+                    margin-right: .5rem;
+                }
+
+                >p:last-of-type {
+                    font: 600 .8rem $text4;
+                }
+            }
+
+            .Xaddcomment {
+                border-top: 1px solid rgb(0, 0, 0, .2);
+                display: flex;
+                justify-content: space-between;
+                width: inherit;
+                align-items: center;
+
+                padding: 0 .5% .5%;
+
+                .Xcmtinput {
+
+                    width: 93%;
+                    margin: 0 1%;
+
+                    >input {
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        border-radius: 5px;
+                        padding: 0 .5rem;
+                        opacity: .8;
+                        transition: all .3s;
+                        font: 400 .8rem $text2;
+                        height: 1.5rem;
+
+                        &:hover {
+                            background-color: $bgtext;
+                            opacity: 1;
+                        }
+                    }
+
+                }
+
+                >button {
+                    border: none;
+                    padding: .3rem;
+                    outline: none;
+                    background: none;
+                    margin-right: 1%;
+                    background-color: rgba(241, 241, 237, 0.9)
+                }
+            }
+        }
+    }
+
+
+    .tc {
+        height: 90vh;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+
 }

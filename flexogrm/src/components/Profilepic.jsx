@@ -30,7 +30,7 @@ const Profilepic = ({ changeprofilepic }) => {
 
 
     const postprofilepic = () => {
-        fetch("/uploadProfilePic", {
+        fetch("http://localhost:5000/uploadProfilePic", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -84,14 +84,6 @@ const Profilepic = ({ changeprofilepic }) => {
         hiddenfileinput.current.click();
     }
     return (
-
-
-
-
-
-
-
-
 
         <div className='oprofilepic darkbg' >
 

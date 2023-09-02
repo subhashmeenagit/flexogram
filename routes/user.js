@@ -26,7 +26,8 @@ router.get("/user/:id", (req, res) => {
         .select("-password")
         .then(user => {
             POST.find({ postedBy: req.params.id })
-                .populate("postedBy", "_id")
+                .populate("postedBy", "_id name")
+                .populate("comments.postedBy", " _id name ")
                 .then((post, err) => {
                     if (err) return res.status(422).json({ error: err })
                     res.status(200).json({ user, post })

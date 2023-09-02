@@ -22,7 +22,7 @@ const Myfollowingpost = () => {
         if (!token) {
             nevigate("/signin")
         }
-        fetch("/myfollowingpost", {
+        fetch("http://localhost:5000/myfollowingpost", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             },
@@ -44,7 +44,7 @@ const Myfollowingpost = () => {
 
 
     const likepost = (id) => {
-        fetch("/like", {
+        fetch("http://localhost:5000/like", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const Myfollowingpost = () => {
 
 
     const unlikepost = (id) => {
-        fetch("/unlike", {
+        fetch("http://localhost:5000/unlike", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const Myfollowingpost = () => {
 
 
     const makeComment = (text, id) => {
-        fetch("/comment", {
+        fetch("http://localhost:5000/comment", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",

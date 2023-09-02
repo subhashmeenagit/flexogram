@@ -19,7 +19,7 @@ const Userprofile = () => {
 
 
     const unfollowuser = (userId) => {
-        fetch("/unfollow", {
+        fetch("http://localhost:5000/unfollow", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Userprofile = () => {
 
 
     const followuser = (userId) => {
-        fetch("/follow", {
+        fetch("http://localhost:5000/follow", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Userprofile = () => {
 
     useEffect(() => {
 
-        fetch(`/user/${userid}`, {
+        fetch(`http://localhost:5000/user/${userid}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("jwt")
 
@@ -108,12 +108,15 @@ const Userprofile = () => {
                             onClick={() => {
                                 if (isfollow) {
                                     unfollowuser(user._id)
+
                                 }
                                 else followuser(user._id)
                             }}
 
 
-                        >{
+                        >
+
+                            {
                                 isfollow ? "UnFollow" : "Follow"
                             }</button>
                     </div>

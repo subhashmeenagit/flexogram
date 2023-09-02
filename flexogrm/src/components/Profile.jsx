@@ -11,7 +11,7 @@ const Profile = () => {
     const [comment, setcomment] = useState("")
     const [post, setPost] = useState([]);
     const [changePic, setChangePic] = useState(false)
-
+    const [data, setdata] = useState([])
     const navigate = useNavigate()
 
     const togglepost = ((post) => {
@@ -35,7 +35,7 @@ const Profile = () => {
     }
     useEffect(() => {
 
-        fetch(`/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
+        fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("jwt")
 
@@ -53,7 +53,7 @@ const Profile = () => {
 
     const removePost = (postId) => {
         if (window.confirm("Do you really want to delete this post ?")) {
-            fetch(`/deletePost/${postId}`, {
+            fetch(`http://localhost:5000/deletePost/${postId}`, {
                 method: "delete",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -69,6 +69,33 @@ const Profile = () => {
                 .catch(err => notifyA(err))
         }
     };
+    const makeComment = (text, id) => {
+        fetch("http://localhost:5000/comment", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                text: text,
+                postId: id
+            })
+        }).then(res => res.json())
+            .then((result) => {
+                const newdata = data.map((posts) => {
+                    if (posts._id == result._id) {
+                        return result
+                    }
+                    else {
+                        return posts
+                    }
+                })
+                //   data[0].likes = result.error.likes
+                setdata(newdata)
+                // console.log(result.error.likes, result, typeof (result), data, "unposedliked", data[0].likes, typeof (data))
+            })
+        setcomment("")
+    }
 
 
     return (
@@ -109,7 +136,7 @@ const Profile = () => {
                                 onClick={() => {
                                     togglepost(e);
                                     setPost(e)
-                                    console.log(e);
+
                                 }}
                             />
                         })
@@ -119,15 +146,17 @@ const Profile = () => {
             </div>
             {
                 show && (
-                    <div className="showComment">
+                    <div className="showpost">
                         <div className="container">
                             <div className="postPic">
                                 <img src={post.photo} alt="pic" />
                             </div>
+
+
                             <div className="details">
                                 {/* card header */}
                                 <div
-                                    className="ppcardheader"
+                                    className="Xcardheader"
                                     style={{ borderBottom: "1px solid #00000029" }}
                                 >
 
@@ -135,7 +164,7 @@ const Profile = () => {
                                         src={user.Photo ? user.Photo : avtar}
                                         alt="pic"
                                     />
-                                    <p>{post.postedBy.name}</p>
+                                    <p>{user.name}</p>
                                     <div
                                         className="deletePost"
 
@@ -153,19 +182,21 @@ const Profile = () => {
                                 </div>
 
                                 {/* commentSection */}
-                                <div
-                                    className="comment-section"
-                                    style={{ borderBottom: "1px solid #00000029" }}
+                                <div className="totalcomments tc"
+                                    style={{ "background-color": "rgb(255, 255, 255, .9)" }}
+
                                 >
-                                    {post.comments.map((comment) => {
-                                        return (
-                                            <p className="comm">
-                                                <span className="commenter" style={{ fontWeight: "bolder" }}>
-                                                    {comment.postedBy.name}{": "}
-                                                </span>
-                                                <span className="commentText">{comment.comment}</span>
-                                            </p>
-                                        );
+                                    <h1> Total Comments: {post.comments.length}</h1>
+                                    {post.comments.map((e) => {
+                                        return <>
+                                            <div className="personcmt ">
+
+                                                <h1> {e.postedBy.name} : </h1>
+                                                <p>{e.comment}</p>
+                                            </div>
+
+
+                                        </>
                                     })}
                                 </div>
 
@@ -176,25 +207,24 @@ const Profile = () => {
                                 </div>
 
                                 {/* add Comment */}
-                                <div className="add-comment">
-                                    <span className="material-symbols-outlined">mood</span>
-                                    <input
-                                        type="text"
-                                        placeholder="Add a comment"
-                                    //   value={comment}
-                                    //   onChange={(e) => {
-                                    //     setComment(e.target.value);
-                                    //   }}
-                                    />
+                                <div className="Xaddcomment"
+                                    style={{ "background-color": "rgb(255, 255, 255)" }}>
+                                    <span class="material-symbols-outlined rxn">
+                                        add_reaction
+                                    </span>
+                                    <div className="Xcmtinput">
+                                        <input className='showcommentinput' type="text" placeholder='comment...'
+                                            value={comment} onChange={(e) => {
+                                                setcomment(e.target.value)
+                                            }} />
+                                    </div>
                                     <button
-                                        className="comment"
-                                    //   onClick={() => {
-                                    //     makeComment(comment, item._id);
-                                    //     toggleComment();
-                                    //   }}
-                                    >
-                                        Post
-                                    </button>
+                                        onClick={() => {
+                                            makeComment(comment, post._id)
+                                            togglepost();
+
+                                        }}
+                                    >post</button>
                                 </div>
                             </div>
                         </div>
@@ -204,93 +234,11 @@ const Profile = () => {
                                 togglepost();
                             }}
                         >
-                            <span className="material-symbols-outlined material-symbols-outlined-comment">
+                            <span className="material-symbols-outlined material-symbols-outlined-comment clsbtn">
                                 close
                             </span>
                         </div>
                     </div>
-                    // <div className="pppicdetail">
-
-                    //     <div className="ppcontainerpost">
-                    //         <div className="pppostpic">
-                    //             <img src={item.photo} alt="pic" />
-                    //         </div>
-
-                    //         <div className="pppostdetail">
-                    //             <button className='togglecmt' onClick={() => {
-                    //                 togglepost()
-                    //             }}>
-                    //                 <AiOutlineClose />
-
-
-                    //             </button>
-
-                    //             <div className='postdeletbtn'>
-                    //                 <button >
-                    //                     <IconContext.Provider value={{ className: "deleteicon" }}>  <AiOutlineDelete /> </IconContext.Provider>
-
-
-                    //                 </button>
-                    //                 <p>     Delete Post</p>
-                    //             </div>
-
-                    //             <div className="ppcardheader">
-                    //                 <img src={pic1} alt="profilepic" />
-                    //                 <p>{item.postedBy.name}</p>
-                    //             </div>
-                    //             <div className="totalcomments"
-                    //                 style={{ height: "80vh", "margin-bottom": "1.5rem" }}
-
-                    //             >
-                    //                 <h1> Total Comments: {item.comments.length}</h1>
-                    //                 {item.comments.map((e) => {
-                    //                     return <>
-                    //                         <div className="personcmt">
-
-                    //                             <h1> {e.postedBy.name} : </h1>
-                    //                             <p>{e.comment}</p>
-                    //                         </div>
-
-
-                    //                     </>
-                    //                 })}
-                    //             </div>
-                    //             <div className="likecomaddcoom"
-                    //                 style={{
-                    //                     padding: ".1rem 0 .1rem 0"
-                    //                 }}
-
-
-                    //             >
-                    //                 <div className='likecap'>
-                    //                     <p
-                    //                     >{item.likes.length} {item.likes.length > 1 ? "Likes" : "Like"}</p>
-                    //                     <p>{item.body}</p>
-                    //                 </div>
-                    //                 <div className="addcomment addcomment-new">
-                    //                     <span class="material-symbols-outlined rxn">
-                    //                         add_reaction
-                    //                     </span>
-                    //                     <div className="cmtinput">
-                    //                         <input className='showcommentinput' type="text" placeholder='comment...'
-                    //                             value={comment} onChange={(e) => {
-                    //                                 setcomment(e.target.value)
-                    //                             }} />
-                    //                     </div>
-                    //                     <button
-                    //                         onClick={() => {
-                    //                             //    makeComment(comment, item._id)
-                    //                             togglepost();
-
-                    //                         }}
-                    //                     >post</button>
-                    //                 </div>
-                    //             </div>
-
-                    //         </div>
-                    //     </div>
-
-                    // </div>
                 )
             }
 

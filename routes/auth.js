@@ -18,7 +18,7 @@ router.post("/signup", (req, res) => {
     const { name, userName, email, password } = req.body
 
     if (!name || !email || !userName || !password) {
-        return res.status(422).json({ error: ` pleasse add all required  filds` })
+        return res.status(422).json({ error: ` please add all required  fields` })
     }
 
 
@@ -26,7 +26,7 @@ router.post("/signup", (req, res) => {
         if (savedUser) {
             return res.status(422).json({ error: "user already exist with this email or useName" })
         }
-        if (password.length <= 5) return res.status(422).json({ error: "Password should be greater thean 6 number" })
+        if (password.length <= 5) return res.status(422).json({ error: "Password should be greater than 6 number" })
 
         let Capt = false;
         let spec = false
@@ -73,8 +73,8 @@ router.post("/signin", (req, res) => {
             if (match) {
 
                 const token = jwt.sign({ _id: saveduserr.id }, jwt_secret)
-                const { _id, name, email, userName } = saveduserr
-                res.status(200).json({ message: "Signin successfully !", token: token, user: { _id, name, email, userName } })
+                const { _id, name, email, userName, Photo } = saveduserr
+                res.status(200).json({ message: "Signin successfully !", token: token, user: { _id, name, email, userName, Photo } })
             }
             else return res.status(422).json({ error: "Invalid Password" })
         })
